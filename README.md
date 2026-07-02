@@ -66,6 +66,14 @@ All Miniloader versions can read blueprints that were created with older version
 
 When downgrading the Miniloader to a version before 1.0.0, it _must_ be the latest version before 1.0.0 (currently that is 0.13.2) as this will be the only version that supports reading newer blueprints and converting them back to the pre-1.0.0 format. Any other version may crash the game, not read the blueprint or behave in an undefined way.
 
+### Item spilling
+
+Starting with 1.0.0, Miniloader supports multiple modes which require rebuilding the actual loader itself. When doing this, the items in the loader would be lost. Similar, when changing filters, it is possible that items get stuck inside the loader and stopping it from functioning.
+
+If a Miniloader is pushing into or pulling from a chest, it will try to push such items back into the chest. However, if the chest is full, the Miniloader can either spill the items around its position (and mark the items for pickup by robots) or silently discard those. For high value items (such as science packs or processing units), spilling is better, for low value items (ores, plates etc.), discarding is usually fine.
+
+There is a startup setting that defines the default for new miniloaders and each miniloader can be individually configured through the GUI. The setting is preserved in blueprints and through copy-paste.
+
 ### Fixing Collision mask failures
 
 When using Miniloaders with some other mods (most prominent offender seems to be the [Advanced Furnaces 2 SpaceAgeFix](https://mods.factorio.com/mod/Load-Furn-2-SpaceAgeFix) mod), the game fails to load with an error message like this:
@@ -121,6 +129,12 @@ Default value is "off".
 All miniloaders are checked whether they interact with a chest or an assembly machine. If yes, enable Speed Mode for that miniloader. This is useful when migrating a game that uses miniloaders before 1.0.
 
 Default value is "off".
+
+### Spill stuck items on the ground (Startup)
+
+A Miniloader consists of multiple entities and it is possible when switching filters or the operations mode that items get stuck inside the loader which will block its operation. The Miniloader can either remove these items and spill them on the ground, marking them for pickup by robots or silently discard and destroy these items. This is the default setting for new miniloaders which can be changed in the GUI.
+
+Default value is "on".
 
 ### Migrate Factorio 1.1 Miniloaders (Startup)
 
@@ -212,6 +226,20 @@ Reloads the configuration for all miniloaders. If the `speed` parameter is given
 - Similar to the old Miniloader module, Blueprints do not show the "correct" orientation of the loader due to limitations of the game.
 - The rotation speed reported for a miniloader is wildly different based on the hand size and the inserter count.
 - Higher speed (> 240 items/sec) loaders behave strange in Speed Mode. To get maximum performance, match the loader and belt speed exactly.
+
+## User feedback
+
+* [From b_jonas on the forums](https://mods.factorio.com/mod/miniloader-redux/discussion/6a3cbbbb2d2f4ecb866a5bc6)
+
+Miniloaders (redux) are better at balancing belts or belt lanes equally than most other loaders.
+
+Firstly, if you make multiple miloaders unload from a chest to belts such that the belts are mostly empty and can carry away more output than the chest can supply, then each belt will get loaded an equal throughput of items. Other loader mods can't do this, they will often unpredictably unload some output belts with more items than other output belts. As far as I know, the only loaders that have this behavior is Minilaoders (redux) and therax's original Miniloaders.
+
+Secondly, if you use a miniloader to load into a chest, and the input belts are mostly full, the chest gets emptied slower than the belt can supply them, then the miniloader will pull from the two lanes of the input belt equally. Most loaders from other mods will favor one lane, and if the chest gets emptied slower than one lane's speed, they will only pull items from one lane. As far as I know, Miniloader (Redux) is the only mod with this property.
+
+These balancing properties are very useful. Especially together with large chests from other mods, miniloaders can replace most belt-based balancers or lane balancers with easier constructions. Because this is so useful, I think you should advertise this in the module's long description on the mod portal, and perhaps in screenshot images too.
+
+Loaders combined with large chests also let you easily configure priorities between multiple input and output belts to any order you want, and it's easy to change these priorities. Multiple loaders load a chest lets you balance input belts equally, and a loader unloading a chest lets you balance output lanes easily. These are also useful, but they also work with other loader mods that use Factorio's built-in loader entity (starting from Factorio 2.0).
 
 ## Credits
 
