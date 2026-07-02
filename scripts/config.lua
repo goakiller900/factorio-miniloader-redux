@@ -386,7 +386,10 @@ local function update_filters(ml_entity)
     -- loader
 
     for i = 1, ml_entity.loader.filter_slot_count, 1 do
-        ml_entity.loader.set_filter(i, ml_entity.config.filters[i])
+        local filter = ml_entity.config.filters[i]
+        if filter and prototypes.item[filter.name] then
+            ml_entity.loader.set_filter(i, filter)
+        end
     end
 
     ml_entity.loader.loader_filter_mode = has_filters and ml_entity.config.filter_mode or 'none'
@@ -401,7 +404,10 @@ local function update_filters(ml_entity)
         inserter.inserter_filter_mode = inserter_filter_mode
 
         for i = 1, inserter.filter_slot_count, 1 do
-            inserter.set_filter(i, ml_entity.config.filters[i])
+            local filter = ml_entity.config.filters[i]
+            if filter and prototypes.item[filter.name] then
+                inserter.set_filter(i, filter)
+            end
         end
     end
 
