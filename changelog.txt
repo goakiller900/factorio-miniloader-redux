@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
-Date: ????
+Date: 2026-07-02
   Major Features:
     - Add startup and GUI settings for spilling or discarding stuck items from a miniloader.
   Changes:
