@@ -227,7 +227,7 @@ function Snapping:updateLoaders(entity)
     self:updateNeighborLoaders(entity)
 
     if entity.type == 'underground-belt' then
-        self:updateNeighborLoaders(entity.neighbours)
+        self:updateNeighborLoaders(entity.belt_neighbours)
     elseif entity.type == 'linked-belt' then
         self:updateNeighborLoaders(entity.linked_belt_neighbour)
     end
