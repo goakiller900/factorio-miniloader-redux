@@ -95,8 +95,3 @@
 ---@field inserters LuaEntity[]       All inserters in this miniloader.
 ---@field config miniloader.Config    Config settings. This is what gets blueprinted / configured etc.
 ---@field state miniloader.State      Runtime state. Updated as the Miniloader works.
-
----@class miniloader.PreBuild
----@field direction defines.direction  Direction as reported by the prebuild event
----@field flip_horizontal boolean      Flip horizontal as reported by the prebuild event
----@field flip_vertical boolean        Flip vertical as reported by the prebuild event
