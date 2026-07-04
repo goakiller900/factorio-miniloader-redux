@@ -21,17 +21,6 @@ local migration = require('scripts.migration')
 -- entity create / delete
 --------------------------------------------------------------------------------
 
----@param event EventData.on_pre_build
-local function on_pre_build(event)
-    local pdata = Player.pdata(event.player_index)
-    ---@type miniloader.PreBuild
-    pdata.pre_build = pdata.pre_build or {}
-
-    pdata.pre_build.direction = event.direction
-    pdata.pre_build.flip_horizontal = event.flip_horizontal
-    pdata.pre_build.flip_vertical = event.flip_vertical
-end
-
 ---@param event EventData.on_built_entity | EventData.on_robot_built_entity | EventData.on_space_platform_built_entity | EventData.script_raised_revive | EventData.script_raised_built
 local function on_entity_created(event)
     local entity = event and event.entity
@@ -40,6 +29,8 @@ local function on_entity_created(event)
     ---@type Tags?
     local tags = event.tags
     local player_index = event.player_index
+    ---@type ff2.ghost_manager.PreBuild?
+    local pre_build
 
     local config, no_snapping = nil, false
 
@@ -48,6 +39,7 @@ local function on_entity_created(event)
     if entity_ghost then
         tags = tags or entity_ghost.tags
         player_index = player_index or entity_ghost.player_index
+        pre_build = pre_build or entity_ghost.pre_build
     end
 
     if tags then
@@ -65,14 +57,13 @@ local function on_entity_created(event)
         end
     end
 
-    if player_index then
-        local pdata = Player.pdata(player_index)
-        ---@type miniloader.PreBuild?
-        local pre_build = pdata and pdata.pre_build
-        -- correct config direction in the ml_config tag
-        if config and config.direction then
-            config.direction = This.Snapping:correct_direction(config.direction, pre_build)
-        end
+    if player_index and not pre_build then
+        pre_build = Framework.Ghost:getPreBuild(player_index)
+    end
+
+    -- correct config direction in the ml_config tag
+    if pre_build and config and config.direction then
+        config.direction = This.Snapping:correct_direction(config.direction, pre_build)
     end
 
     -- this is a workaround for https://forums.factorio.com/viewtopic.php?t=133860
@@ -301,8 +292,6 @@ local function register_events()
     local match_snap_entities = Matchers:matchEventEntity('type', const.snapping_type_names)
     local match_forward_snap_entities = Matchers:matchEventEntity('type', const.forward_snapping_type_names)
 
-
-    Event.register(defines.events.on_pre_build, on_pre_build)
     -- entity create / delete
     Event.register(Matchers.CREATION_EVENTS, on_entity_created, match_all_main_entities)
     -- deletion events can not include on_entity_died because then the tombstone manager would not work.

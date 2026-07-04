@@ -75,7 +75,7 @@ end
 --- Corrects a given direction based on the prebuild information about rotation and flipping.
 --- This is most useful when building entities from a blueprint.
 ---@param direction defines.direction
----@param pre_build miniloader.PreBuild?
+---@param pre_build ff2.ghost_manager.PreBuild?
 ---@return defines.direction corrected_direction
 function Snapping:correct_direction(direction, pre_build)
     if not pre_build then return direction end

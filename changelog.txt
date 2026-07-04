@@ -3,6 +3,8 @@ Version: 1.0.2
 Date: ????
   Bugfixes:
     - Fix a crash when switching modes while interacting with a machine that has no chest inventory (reported by @JAMD96 on github, #44)
+  Changes:
+    - Register pre_build events on ghosts to allow multiple rotated/flipped blueprints built simultaneously.
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 2026-07-02
