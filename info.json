@@ -17,7 +17,7 @@
     "(?) TurboBelt"
   ],
   "package": {
-    "git_publish_branch": "2.0-maint",
+    "git_publish_branch": "main",
     "readme": "README.md",
     "gallery": [
 	  "portal/all-belts.gif",
