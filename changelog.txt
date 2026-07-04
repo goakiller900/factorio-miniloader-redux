@@ -1,7 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: ????
-  Changes:
+  Bugfixes:
+    - Fix a crash when switching modes while interacting with a machine that has no chest inventory (reported by @JAMD96 on github, #44)
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 2026-07-02

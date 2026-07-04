@@ -345,15 +345,19 @@ function Config:flushEntities(ml_entity)
 
     -- push as much as possible into the container (if any)
     if container and container.valid then
-        local container_inventory = assert(container.get_inventory(defines.inventory.chest))
-        for idx = 1, #inventory, 1 do
-            local stack = inventory[idx]
-            if stack.count > 0 then
-                local inserted = container_inventory.insert(stack)
-                if inserted >= stack.count then
-                    stack.clear()
-                else
-                    stack.count = stack.count - inserted
+        local container_inventory = ((ml_entity.config.loader_type == 'output')
+            and (container.get_output_inventory())
+            or container.get_inventory(defines.inventory.crafter_input)) or container.get_inventory(defines.inventory.chest)
+        if container_inventory then
+            for idx = 1, #inventory, 1 do
+                local stack = inventory[idx]
+                if stack.count > 0 then
+                    local inserted = container_inventory.insert(stack)
+                    if inserted >= stack.count then
+                        stack.clear()
+                    else
+                        stack.count = stack.count - inserted
+                    end
                 end
             end
         end
