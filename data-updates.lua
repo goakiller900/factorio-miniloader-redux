@@ -14,6 +14,10 @@ local const = require('lib.constants')
 local templates = require('prototypes.templates')
 local functions = require('prototypes.functions')
 
+if mods['UltimateBeltsSpaceAgePlus'] then
+    require('prototypes.compatibility.ultimate-belts-space-age-plus')(templates)
+end
+
 local upgrades = {}
 
 if Framework.settings:startup_setting('debug_mode') then
