@@ -7,6 +7,9 @@ local const = require('lib.constants')
 
 local STACKING_ENABLED = feature_flags.space_travel
 
+-- Ultimate Belts uses 2x through 6x express-belt speed (90/135/180/225/270 items/s).
+-- The 90, 180 and 270 configurations match existing Miniloader Redux speed tiers.
+-- The 135 and 225 configurations interpolate rotation speed and need in-game throughput validation.
 local SPEED_SETTINGS = {
     speed_90 = {
         items_per_second = 90,
@@ -15,6 +18,13 @@ local SPEED_SETTINGS = {
         stack_size_bonus = 3,
         power_correction = 897/305,
     },
+    speed_135 = {
+        items_per_second = 135,
+        rotation_speed = 0.375,
+        inserter_pairs = 1,
+        stack_size_bonus = 3,
+        power_correction = 1,
+    },
     speed_180 = {
         items_per_second = 180,
         rotation_speed = 0.5,
@@ -22,26 +32,19 @@ local SPEED_SETTINGS = {
         stack_size_bonus = 2,
         power_correction = 2070/703,
     },
+    speed_225 = {
+        items_per_second = 225,
+        rotation_speed = 5/12,
+        inserter_pairs = 3,
+        stack_size_bonus = 2,
+        power_correction = 1,
+    },
     speed_270 = {
         items_per_second = 270,
         rotation_speed = 0.5,
         inserter_pairs = 3,
         stack_size_bonus = 2,
         power_correction = 3350/1130,
-    },
-    speed_360 = {
-        items_per_second = 360,
-        rotation_speed = 0.5,
-        inserter_pairs = 4,
-        stack_size_bonus = 2,
-        power_correction = 4700/1200,
-    },
-    speed_450 = {
-        items_per_second = 450,
-        rotation_speed = 0.5,
-        inserter_pairs = 4,
-        stack_size_bonus = 7,
-        power_correction = 6090/1650,
     },
 }
 
@@ -106,7 +109,7 @@ return function(templates)
             underground_belt = 'extreme-fast-underground-belt',
             graphics_prefix = 'extreme-fast',
             technology = 'extreme-fast-logistics',
-            speed_config = SPEED_SETTINGS.speed_180,
+            speed_config = SPEED_SETTINGS.speed_135,
         },
         {
             prefix = 'ub-ultra-express',
@@ -119,7 +122,7 @@ return function(templates)
             underground_belt = 'ultra-express-underground-belt',
             graphics_prefix = 'ultra-express',
             technology = 'ultra-express-logistics',
-            speed_config = SPEED_SETTINGS.speed_270,
+            speed_config = SPEED_SETTINGS.speed_180,
         },
         {
             prefix = 'ub-extreme-express',
@@ -132,7 +135,7 @@ return function(templates)
             underground_belt = 'extreme-express-underground-belt',
             graphics_prefix = 'extreme-express',
             technology = 'extreme-express-logistics',
-            speed_config = SPEED_SETTINGS.speed_360,
+            speed_config = SPEED_SETTINGS.speed_225,
         },
         {
             prefix = 'ub-ultimate',
@@ -145,7 +148,7 @@ return function(templates)
             underground_belt = 'original-ultimate-underground-belt',
             graphics_prefix = 'original-ultimate',
             technology = 'ultimate-logistics',
-            speed_config = SPEED_SETTINGS.speed_450,
+            speed_config = SPEED_SETTINGS.speed_270,
         },
     }
 
