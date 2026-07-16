@@ -9,6 +9,7 @@
   "factorio_version": "2.1",
   "dependencies": [
     "base >= 2.1.7",
+    "(?) UltimateBeltsSpaceAgePlus",
     "(?) matts-logistics",
     "(?) Krastorio2 >= 2.0.7",
     "(?) boblogistics >= 2.1.0",
@@ -20,14 +21,14 @@
     "git_publish_branch": "main",
     "readme": "README.md",
     "gallery": [
-	  "portal/all-belts.gif",
+      "portal/all-belts.gif",
       "portal/all-belts-stacked.gif",
-	  "portal/lane-filter.gif",
-	  "portal/sideloading.gif",
-	  "portal/normal-mode-gui.png",
-	  "portal/speed-mode-gui.png",
-	  "portal/extended_rotation.gif",
-	  "portal/picker-dollies.gif"
+      "portal/lane-filter.gif",
+      "portal/sideloading.gif",
+      "portal/normal-mode-gui.png",
+      "portal/speed-mode-gui.png",
+      "portal/extended_rotation.gif",
+      "portal/picker-dollies.gif"
     ],
     "sync_portal_details": true,
     "ignore": [
