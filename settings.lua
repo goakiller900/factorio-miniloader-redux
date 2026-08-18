@@ -11,6 +11,14 @@ data:extend({
         default_value = true,
     },
     {
+        type = 'string-setting',
+        name = const.settings.default_mode,
+        order = 'ab',
+        setting_type = 'runtime-per-user',
+        default_value = 'normal',
+        allowed_values = { 'normal', 'speed', 'lane-filter', },
+    },
+    {
         -- Debug mode (framework dependency)
         type = "bool-setting",
         name = Framework.PREFIX .. 'debug-mode',

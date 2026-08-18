@@ -283,12 +283,13 @@ end
 
 ---@param main LuaEntity
 ---@param config miniloader.Config?
+---@param player_index integer?
 ---@return miniloader.Data?
-function Controller:setup(main, config)
+function Controller:setup(main, config, player_index)
     local entity_id = main.unit_number
 
     -- if tags were passed in and they contain a config, use that.
-    config = This.Config:createConfiguration(main, config)
+    config = This.Config:createConfiguration(main, config, player_index)
     config.direction = config.direction or main.direction
     config.loader_type = config.loader_type or 'output'
 
@@ -325,11 +326,12 @@ end
 ---@param main LuaEntity
 ---@param config miniloader.Config?
 ---@param no_snapping boolean? If true, don't snap to neighbors
+---@param player_index integer? Player whose default mode should be used for a new loader
 ---@return miniloader.Data?
-function Controller:create(main, config, no_snapping)
+function Controller:create(main, config, no_snapping, player_index)
     if not Is.Valid(main) then return nil end
 
-    local ml_entity = self:setup(main, config)
+    local ml_entity = self:setup(main, config, player_index)
     if not ml_entity then return nil end
 
     if config then

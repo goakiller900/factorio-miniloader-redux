@@ -78,7 +78,7 @@ local function on_entity_created(event)
         end
     end
 
-    This.MiniLoader:create(entity, config, no_snapping)
+    This.MiniLoader:create(entity, config, no_snapping, player_index)
 end
 
 ---@param event EventData.on_player_mined_entity | EventData.on_robot_mined_entity | EventData.on_space_platform_mined_entity | EventData.script_raised_destroy

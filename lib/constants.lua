@@ -159,6 +159,7 @@ Constants.loader_direction = {
 
 Constants.settings_keys = {
     'loader_snapping',
+    'default_mode',
     'chute_loader',
     'migrate_loaders',
     'sanitize_loaders',
