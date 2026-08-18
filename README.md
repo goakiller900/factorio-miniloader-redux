@@ -4,31 +4,37 @@ A compact loader that can replace inserters in many situations when loading from
 
 Miniloaders can have different modes:
 
-- _Normal mode_ (which is the default)
-  - supports sideloading from/to a belt
-  - In Space Age, supports spoilage priority
-  - degrades with belts above 240 items/sec (The fastest "official" in-game belts are Space Age Turbo Belts, which move at 60 items/sec)
-- _Speed mode_
-  - can interact only with entities that are a container or container-like (e.g. cargo wagons or assembly machines)
-  - supports speeds up to 480 items/sec
-- _Lane filter mode_
-  - only available in Speed Mode
-  - has a single filter for each lane, one for the left lane and one for the right lane
+## Features
 
-- All modes
-  - 1x1 compact size
-  - Extended UI
-  - can be moved with [Even Pickier Dollies](https://mods.factorio.com/mod/even-pickier-dollies)
-  - flips through belt directions and orientation when rotating
-  - supports Fast replacement, Blueprinting, Copy&Paste, Cloning
-  - supports undo/redo for configuration changes
-  - supports parameterized blueprints
-  - supports migrating 1.1 games from the "old" Miniloaders to Miniloader (Redux) with a startup setting
-  - when stacking is available (Space Age), stacking is supported by "Vanilla", Fast and Turbo loaders
+- 1x1 compact size
+- Extended UI
+- can be moved with [Even Pickier Dollies](https://mods.factorio.com/mod/even-pickier-dollies)
+- flips through belt directions and orientation when rotating
+- supports Fast replacement, Blueprinting, Copy&Paste, Cloning
+- supports undo/redo for configuration changes
+- supports parameterized blueprints
+- supports migrating 1.1 games from the "old" Miniloaders to Miniloader (Redux) with a startup setting
+- when stacking is available (Space Age), stacking is supported by "Vanilla", Fast and Turbo loaders
 
 There are three tiers in the base game ("Vanilla", Fast and Express) and four when playing Space Age (adds Turbo mode) which match the belt speeds.
 
 A simple "chute" loader is available early in the game (enable in Startup settings). The chute loader only supports normal mode and has no GUI.
+
+## Operation Modes
+
+### _Normal mode_ (which is the default)
+
+- supports sideloading from/to a belt
+- In Space Age, supports spoilage priority
+- degrades with belts above 240 items/sec (The fastest "official" in-game belts are Space Age Turbo Belts, which move at 60 items/sec)
+
+### _Speed mode_
+- can only interact with entities that are a container or container-like (e.g. cargo wagons or assembly machines)
+- supports speeds up to 480 items/sec
+
+### _Lane filter mode_
+- only available in Speed Mode
+- has a single filter for each lane, one for the left lane and one for the right lane
 
 ![All supported Loader types](https://raw.githubusercontent.com/hgschmie/factorio-miniloader-redux/refs/heads/main/portal/all-belts.gif)
 ![All supported Stacking Loader types](https://raw.githubusercontent.com/hgschmie/factorio-miniloader-redux/refs/heads/main/portal/all-belts-stacked.gif)
@@ -48,11 +54,11 @@ Miniloader supports some other mods:
 - [Space Exploration](https://mods.factorio.com/mod/space-exploration)
 - [TurboBelt](https://mods.factorio.com/mod/TurboBelt)
 
-The miniloaders are activated if the corresponding module is detected.
+These miniloaders are activated if the corresponding module is detected.
 
 Getting the speeds for additional tiers beyond the basic levels (base games and Space Age DLC) is tricky and the game mechanics are stretched when going faster than ~ 120 items/sec. Supporting faster loaders is at best unreliable and might be outright wrong. YMMV.
 
-I am open to support additional tiers from other mods from PRs (see below) but I do not plan to actively add any support for other mods.
+I am open to support additional tiers from other mods from PRs but I do not plan to actively add any support for other mods. See [adding more miniloaders for other mods](https://github.com/hgschmie/factorio-miniloader-redux/blob/main/ADD_NEW_LOADERS.md) for details on how to add loaders for other belt tiers.
 
 ## Limitations
 
@@ -68,13 +74,15 @@ When downgrading the Miniloader to a version before 1.0.0, it _must_ be the late
 
 ### Item spilling
 
-Starting with 1.0.0, Miniloader supports multiple modes which require rebuilding the actual loader itself. When doing this, the items in the loader would be lost. Similar, when changing filters, it is possible that items get stuck inside the loader and stopping it from functioning.
+Starting with 1.0.0, Miniloader supports multiple modes which require rebuilding the actual loader itself. When doing this, items that are currently in the loader would be lost. Similar, when changing filters, it is possible that items get stuck inside the loader which would stop it from functioning.
 
-If a Miniloader is pushing into or pulling from a chest, it will try to push such items back into the chest. However, if the chest is full, the Miniloader can either spill the items around its position (and mark the items for pickup by robots) or silently discard those. For high value items (such as science packs or processing units), spilling is better, for low value items (ores, plates etc.), discarding is usually fine.
+If a Miniloader is pushing into or pulling from a chest, it will try to move such items back into the chest. However, if the chest is full, the Miniloader can either spill the items around its position (and mark the items for pickup by robots) or silently discard those. For high value items (such as science packs or processing units), spilling is better, for low value items (ores, plates etc.), discarding is more convenient because there are no items lying around.
 
 There is a startup setting that defines the default for new miniloaders and each miniloader can be individually configured through the GUI. The setting is preserved in blueprints and through copy-paste.
 
-### Fixing Collision mask failures
+### FAQs
+
+#### I get an error about some "collision_mask" problems, how can I fix this?
 
 When using Miniloaders with some other mods (most prominent offender seems to be the [Advanced Furnaces 2 SpaceAgeFix](https://mods.factorio.com/mod/Load-Furn-2-SpaceAgeFix) mod), the game fails to load with an error message like this:
 
@@ -103,6 +111,12 @@ I am not a graphics person. E.g. Matt's Logistics belts have a different tint an
 See [adding more miniloaders for other mods](https://github.com/hgschmie/factorio-miniloader-redux/blob/main/ADD_NEW_LOADERS.md) for details on how to add loaders for other belt tiers.
 
 ## Config options
+
+### Default Mode (Runtime, per User)
+
+Controls which mode a newly constructed Loader uses (Normal, Speed Mode, Lane Filter)
+
+Default value is "Normal".
 
 ### Loader Snapping (Runtime, per Map)
 
@@ -241,11 +255,12 @@ These balancing properties are very useful. Especially together with large chest
 
 Loaders combined with large chests also let you easily configure priorities between multiple input and output belts to any order you want, and it's easy to change these priorities. Multiple loaders load a chest lets you balance input belts equally, and a loader unloading a chest lets you balance output lanes easily. These are also useful, but they also work with other loader mods that use Factorio's built-in loader entity (starting from Factorio 2.0).
 
-## Credits
+## Credits & Legal
 
-- Therax for the original miniloader.
-- Kirazy &mdash; for the original graphics; taken from the miniloader mod
+- [Therax](https://mods.factorio.com/user/therax) created the [original miniloader](https://mods.factorio.com/mod/miniloader).
+- [Kirazy](https://mods.factorio.com/user/kirazy) made the the original graphics; taken from the miniloader mod
 
-## Legal
+The code was partially written and reviewed by AI coding agents. If you are fundamentally opposed to using AI tools to develop software and improve software quality, you are free to not install it.
 
+--------------------------------------------------
 (C) 2024-2026 Henning Schmiedehausen (hgschmie). Released under the MIT License.
