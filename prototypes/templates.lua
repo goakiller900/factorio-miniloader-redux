@@ -176,14 +176,14 @@ local function check_turbo_belt()
     return game_mode.turbo_belt
 end
 
----@return data.VoidEnergySource energy_source
+---@return VoidEnergySource energy_source
 ---@return number consumption_amount
 ---@return number drain_amount
 local function energy_void()
     return { type = 'void' }, 0, 0
 end
 
----@param prototype data.EntityWithOwnerPrototype
+---@param prototype EntityWithOwnerPrototype
 local function allow_in_space(prototype)
     ---@diagnostic disable-next-line:inject-field
     prototype.se_allow_in_space = true

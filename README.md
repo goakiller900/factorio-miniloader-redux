@@ -29,10 +29,12 @@ A simple "chute" loader is available early in the game (enable in Startup settin
 - degrades with belts above 240 items/sec (The fastest "official" in-game belts are Space Age Turbo Belts, which move at 60 items/sec)
 
 ### _Speed mode_
+
 - can only interact with entities that are a container or container-like (e.g. cargo wagons or assembly machines)
 - supports speeds up to 480 items/sec
 
 ### _Lane filter mode_
+
 - only available in Speed Mode
 - has a single filter for each lane, one for the left lane and one for the right lane
 
@@ -172,8 +174,8 @@ Default value is "off".
 
 ### Support Blueprint Mods (Startup)
 
-This is a workaround for an issue with the Factorio game itself (see https://forums.factorio.com/viewtopic.php?t=133860). It allows Blueprinting mods such as [Blueprint Sandboxes](https://mods.factorio.com/mod/blueprint-sandboxes) or [Blueprint Shotgun](https://mods.factorio.com/mod/blueprint-shotgun)
-to upgrade/downgrade Miniloaders. This is a "best effort" working around the issue and a Miniloader may lose part or all of its configuration in the process. This is a highly experimental and dangerous setting. If you encounter any errors with this setting, do not enable.
+This is a workaround for an issue with the [Factorio game itself](https://forums.factorio.com/viewtopic.php?t=133860). It allows Blueprinting mods such as [Blueprint Sandboxes](https://mods.factorio.com/mod/blueprint-sandboxes) or [Blueprint Shotgun](https://mods.factorio.com/mod/blueprint-shotgun)
+to upgrade/downgrade Miniloaders. This is a highly experimental and dangerous setting and a "best effort" working around the issue and a Miniloader may lose part or all of its configuration in the process. If you encounter any errors with this setting, do not enable.
 
 Default value is "off".
 
@@ -243,7 +245,7 @@ Reloads the configuration for all miniloaders. If the `speed` parameter is given
 
 ## User feedback
 
-* [From b_jonas on the forums](https://mods.factorio.com/mod/miniloader-redux/discussion/6a3cbbbb2d2f4ecb866a5bc6)
+- [From b_jonas on the forums](https://mods.factorio.com/mod/miniloader-redux/discussion/6a3cbbbb2d2f4ecb866a5bc6)
 
 Miniloaders (redux) are better at balancing belts or belt lanes equally than most other loaders.
 

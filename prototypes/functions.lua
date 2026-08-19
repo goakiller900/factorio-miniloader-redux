@@ -32,7 +32,7 @@ local function compute_dash_prefix(name)
     return name .. '-'
 end
 
----@param tint data.Color
+---@param tint Color
 ---@param variant string
 ---@param mask_variant string?
 local function icon_gfx(tint, variant, mask_variant)
@@ -130,7 +130,7 @@ local function create_item(params)
     data:extend { item }
 end
 
----@param loader data.LoaderPrototype
+---@param loader LoaderPrototype
 ---@param name string
 local function default_belt_color_selector(loader, name)
     if not (name and name:len() > 0) then return end
@@ -140,7 +140,7 @@ local function default_belt_color_selector(loader, name)
 end
 
 ---@param params miniloader.LoaderTemplate
----@param prototype data.EntityWithOwnerPrototype
+---@param prototype EntityWithOwnerPrototype
 local function apply_prototype_processors(params, prototype)
     for _, processor in pairs(params.global_prototype_processors) do
         processor(prototype)
@@ -165,7 +165,6 @@ local function create_entity(params)
 
     local can_stack = params.stack and speed_config.stack_size_bonus == 0
 
-
     local description = { '',
         { 'entity-description.' .. entity_name },
         '\n',
@@ -180,7 +179,7 @@ local function create_entity(params)
 
     local void_energy = { type = 'void', }
 
-    ---@type data.ElectricEnergySource|data.VoidEnergySource|data.BurnerEnergySource
+    ---@type ElectricEnergySource|VoidEnergySource|BurnerEnergySource
     local primary_energy = {
         type = 'electric',
         usage_priority = 'secondary-input',
