@@ -29,6 +29,7 @@ local table = require('stdlib.utils.table')
 ---@field order string
 local Constants = {
     prefix = 'hps__ml-',
+    log_prefix = 'ML',
     name = 'miniloader',
     root = '__miniloader-redux__',
     order = 'l[oaders]-m[iniloader]',
@@ -45,23 +46,6 @@ local Constants = {
 
 Constants.gfx_location = Constants.root .. '/graphics/'
 
---------------------------------------------------------------------------------
--- Framework intializer
---------------------------------------------------------------------------------
-
----@return FrameworkConfig config
-function Constants.framework_init()
-    return {
-        -- prefix is the internal mod prefix
-        prefix = Constants.prefix,
-        -- name is a human readable name
-        name = Constants.name,
-        -- The filesystem root.
-        root = Constants.root,
-    }
-end
-
---------------------------------------------------------------------------------
 -- Path and name helpers
 --------------------------------------------------------------------------------
 

@@ -14,6 +14,8 @@ require('stdlib.utils.string')
 
 local const = require('lib.constants')
 
+local DEBUG_MODE = Framework.settings:get_debug_level() >= 1
+
 ---@class miniloader.Controller
 ---@field positions table<defines.direction, MapPosition[]>
 ---@field spoiling boolean
@@ -114,7 +116,8 @@ function Controller:setEntity(entity_id, ml_entity)
 
     if storage.ml_data.count < 0 then
         storage.ml_data.count = table_size(storage.ml_data.by_main)
-        Framework.logger:logf('Miniloader count got negative (bug), size is now: %d', storage.ml_data.count)
+        Framework.logger.log(0, 'setEntity', 'Miniloader count got negative (bug), size is now: %d',
+            function() return storage.ml_data.count end)
     end
 end
 
@@ -469,7 +472,7 @@ local function configure_regular_mode(ml_entity)
         inserter.pickup_position = pickup_position
         inserter.drop_position = drop_position
 
-        if Framework.settings:startup_setting('debug_mode') then
+        if DEBUG_MODE then
             draw_position(ml_entity, inserter.drop_position, { r = 1, g = 0, b = 0 }, inserter_index)
             draw_position(ml_entity, inserter.pickup_position, { r = 0, g = 1, b = 0 }, inserter_index)
             draw_position(ml_entity, inserter.position, { r = 0, g = 0, b = 1 }, inserter_index)

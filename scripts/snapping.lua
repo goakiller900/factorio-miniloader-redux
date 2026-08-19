@@ -10,6 +10,8 @@ local Direction = require('stdlib.area.direction')
 
 local const = require('lib.constants')
 
+local DEBUG_MODE = Framework.settings:get_debug_level() >= 1
+
 local DIRECTION_SIZE = table_size(defines.direction)
 
 ---@class miniloader.Snapping
@@ -136,7 +138,7 @@ end
 ---@return (miniloader.Data[]) ml_entities
 local function find_loader_by_entity(entity)
     local area = Area(entity.prototype.selection_box):offset(entity.position):expand(1)
-    if Framework.settings:startup_setting('debug_mode') then
+    if DEBUG_MODE then
         rendering.draw_rectangle {
             color = { r = 1, g = 0.5, b = 0.5 },
             surface = entity.surface,
@@ -171,7 +173,7 @@ local function find_neighbor_entity(ml_entity, direction)
     -- find area to look at in front of the miniloader (the miniloader points in 'direction')
     local area = Position(ml_entity.main.position):translate(direction, 1):expand_to_area(0.5)
 
-    if Framework.settings:startup_setting('debug_mode') then
+    if DEBUG_MODE then
         rendering.draw_rectangle {
             color = { r = 0.5, g = 0.5, b = 1 },
             surface = ml_entity.main.surface,
