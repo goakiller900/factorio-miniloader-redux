@@ -257,12 +257,14 @@ These balancing properties are very useful. Especially together with large chest
 
 Loaders combined with large chests also let you easily configure priorities between multiple input and output belts to any order you want, and it's easy to change these priorities. Multiple loaders load a chest lets you balance input belts equally, and a loader unloading a chest lets you balance output lanes easily. These are also useful, but they also work with other loader mods that use Factorio's built-in loader entity (starting from Factorio 2.0).
 
-## Credits & Legal
+## Credits
 
 - [Therax](https://mods.factorio.com/user/therax) created the [original miniloader](https://mods.factorio.com/mod/miniloader).
 - [Kirazy](https://mods.factorio.com/user/kirazy) made the the original graphics; taken from the miniloader mod
 
+## Legal & Copyright
+
 The code was partially written and reviewed by AI coding agents. If you are fundamentally opposed to using AI tools to develop software and improve software quality, you are free to not install it.
 
 --------------------------------------------------
-(C) 2024-2026 Henning Schmiedehausen (hgschmie). Released under the MIT License.
+Copyright (C) 2025-2026 Henning Schmiedehausen (@hgschmie), licensed under the MIT license.
