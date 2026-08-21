@@ -2,3 +2,4 @@ releases
 .vscode
 claude-issues.md
 .claude/
+.luarc.json

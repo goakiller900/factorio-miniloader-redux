@@ -61,8 +61,9 @@ local FIX_SPOIL_PRIO = {
 
 ---@param main LuaEntity
 ---@param parent_config miniloader.Config?
+---@param player_index integer?
 ---@return miniloader.Config config
-function Config:createConfiguration(main, parent_config)
+function Config:createConfiguration(main, parent_config, player_index)
     local config = get_default_config()
 
     self:configureFromInserter(main, config)
@@ -79,6 +80,10 @@ function Config:createConfiguration(main, parent_config)
         for key, parent_value in pairs(parent_config) do
             if config[key] ~= nil then config[key] = util.copy(parent_value) end
         end
+    else
+        local default_mode = Framework.settings:player_setting(const.settings_names.default_mode, player_index)
+        config.turbo_mode = default_mode ~= 'normal'
+        config.lane_filter = default_mode == 'lane-filter'
     end
 
     return config
@@ -483,7 +488,8 @@ function Config:readConfigFromTag(tag_value)
         ml_config.inserter_config.loader_filter_mode = nil
 
         if table_size(ml_config.inserter_config) > 0 then
-            Framework.logger:logf('Dropping unknown pre-1.0 inserter_config keys: %s', serpent.line(ml_config.inserter_config))
+            Framework.logger.log(1, 'readConfigFromTag', 'Dropping unknown pre-1.0 inserter_config keys: %s',
+                function() return serpent.line(ml_config.inserter_config) end)
         end
         ml_config.inserter_config = nil
     end

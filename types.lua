@@ -18,7 +18,7 @@
 ---@field condition (fun():boolean)?
 ---@field data fun(dash_prefix:string):miniloader.LoaderTemplate
 
----@alias miniloader.PrototypeProcessor fun(prototype: data.EntityWithOwnerPrototype)
+---@alias miniloader.PrototypeProcessor fun(prototype: EntityWithOwnerPrototype)
 
 ---@class miniloader.LoaderTemplate
 ---@field prefix string Prefix for the loader. Set by code from the template key
@@ -31,18 +31,18 @@
 ---@field speed_config miniloader.SpeedConfig
 ---@field localised_name string? Localised name for the loader. defaults to entity-name.<name>
 ---@field upgrade_from string? Tier name from which this loader is an upgrade.
----@field ingredients fun():data.IngredientPrototype[] Ingredients to make the loader
----@field prerequisites fun():data.TechnologyID[]? Technology prerequisites to make the miniloader
----@field research_trigger data.TechnologyTrigger? A technology trigger that will enable the technology.
----@field unit data.TechnologyUnit? The unit of research required. If both unit and research_trigger are undefined, the values from the first ingredient are copied.
----@field energy_source (fun():data.BaseEnergySource, number, number)?
+---@field ingredients fun():IngredientPrototype[] Ingredients to make the loader
+---@field prerequisites fun():TechnologyID[]? Technology prerequisites to make the miniloader
+---@field research_trigger TechnologyTrigger? A technology trigger that will enable the technology.
+---@field unit TechnologyUnit? The unit of research required. If both unit and research_trigger are undefined, the values from the first ingredient are copied.
+---@field energy_source (fun():BaseEnergySource, number, number)?
 ---@field explosion_gfx string? Optional, if missing use the prefix. Selects explosion graphics.
 ---@field corpse_gfx string? Optional, if missing use the prefix. Selects remnants graphics.
 ---@field belt_gfx string? Optional, if missing use the loader tier. Selects belt animation set.
 ---@field entity_gfx string? Graphics variant for miniloader graphics
 ---@field stack boolean? If true, supports stacking
 ---@field nerf_mode boolean? Turn off all the nice features and make the loader really dumb.
----@field belt_color_selector fun(loader: data.LoaderPrototype, name: string)?
+---@field belt_color_selector fun(loader: LoaderPrototype, name: string)?
 ---@field prototype_processor miniloader.PrototypeProcessor?
 ---@field global_prototype_processors miniloader.PrototypeProcessor[]
 

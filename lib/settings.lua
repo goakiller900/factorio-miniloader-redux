@@ -6,6 +6,9 @@ local const = require('lib.constants')
 
 ---@type table<FrameworkSettings.name, FrameworkSettingsGroup>
 local Settings = {
+    player = {
+        [const.settings_names.default_mode] = { key = const.settings.default_mode, value = 'normal', },
+    },
     runtime = {
         [const.settings_names.loader_snapping] = { key = const.settings.loader_snapping, value = true, },
     },

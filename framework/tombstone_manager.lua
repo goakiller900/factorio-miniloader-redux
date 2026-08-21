@@ -35,13 +35,13 @@ local LIFETIME_IN_TICKS = 60 * 86400 -- 24 hours
 ---@field apply_tombstone ff2.tombstone.ApplyTombstoneCallback
 
 ---@class ff2.tombstone.TombstoneKey
----@field position data.MapPosition
+---@field position MapPosition.struct
 ---@field surface_index integer
 ---@field type string
 ---@field name string?
 
 ---@class ff2.tombstone.Tombstone
----@field position data.MapPosition
+---@field position MapPosition.struct
 ---@field surface_index integer
 ---@field type string
 ---@field name string
@@ -274,17 +274,6 @@ end
 -- Registration API
 --------------------------------------------------------------------------------
 
----@param matcher_function framework.event_matcher.MatcherFunction
----@return framework.event_matcher.MatchEventFunction
-local function create_event_ghost_matcher(matcher_function)
-    return function(event, context)
-        if not event then return false end
-        -- move / clone events
-        ---@diagnostic disable-next-line: undefined-field
-        return matcher_function(event.ghost, context)
-    end
-end
-
 --- Register a callback when an entity is replaced with a tombstone.
 --- This must be called from an on_init / on_load callback because it registers
 --- new events.
@@ -300,7 +289,7 @@ function FrameworkTombstoneManager:registerCallback(names, callback)
     end
 
     local entity_filter = Matchers:matchEventEntityName(names)
-    local ghost_filter = create_event_ghost_matcher(Matchers:createMatcherFunction(names, Matchers.GHOST_NAME_EXTRACTOR))
+    local ghost_filter = Matchers:matchEventEntityGhostName(names)
 
     Event.register(Matchers.CREATION_EVENTS, creation_events, entity_filter, nil, { framework = true })
 

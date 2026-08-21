@@ -14,13 +14,11 @@ local const = require('lib.constants')
 local templates = require('prototypes.templates')
 local functions = require('prototypes.functions')
 
-if mods['UltimateBeltsSpaceAgePlus'] then
-    require('prototypes.compatibility.ultimate-belts-space-age-plus')(templates)
-end
+local DEBUG_MODE = Framework.settings:get_debug_level() >= 1
 
 local upgrades = {}
 
-if Framework.settings:startup_setting('debug_mode') then
+if DEBUG_MODE then
     data:extend {
         {
             type = 'item-subgroup',
@@ -74,7 +72,7 @@ for prefix, loader_definition in pairs(templates.loaders) do
             nerf_mode = params.nerf_mode or false,
         }
 
-        if Framework.settings:startup_setting('debug_mode') then
+        if DEBUG_MODE then
             functions.create_debug(params)
         end
     end

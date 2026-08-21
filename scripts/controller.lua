@@ -14,6 +14,8 @@ require('stdlib.utils.string')
 
 local const = require('lib.constants')
 
+local DEBUG_MODE = Framework.settings:get_debug_level() >= 1
+
 ---@class miniloader.Controller
 ---@field positions table<defines.direction, MapPosition[]>
 ---@field spoiling boolean
@@ -114,7 +116,8 @@ function Controller:setEntity(entity_id, ml_entity)
 
     if storage.ml_data.count < 0 then
         storage.ml_data.count = table_size(storage.ml_data.by_main)
-        Framework.logger:logf('Miniloader count got negative (bug), size is now: %d', storage.ml_data.count)
+        Framework.logger.log(0, 'setEntity', 'Miniloader count got negative (bug), size is now: %d',
+            function() return storage.ml_data.count end)
     end
 end
 
@@ -283,12 +286,13 @@ end
 
 ---@param main LuaEntity
 ---@param config miniloader.Config?
+---@param player_index integer?
 ---@return miniloader.Data?
-function Controller:setup(main, config)
+function Controller:setup(main, config, player_index)
     local entity_id = main.unit_number
 
     -- if tags were passed in and they contain a config, use that.
-    config = This.Config:createConfiguration(main, config)
+    config = This.Config:createConfiguration(main, config, player_index)
     config.direction = config.direction or main.direction
     config.loader_type = config.loader_type or 'output'
 
@@ -325,11 +329,12 @@ end
 ---@param main LuaEntity
 ---@param config miniloader.Config?
 ---@param no_snapping boolean? If true, don't snap to neighbors
+---@param player_index integer? Player whose default mode should be used for a new loader
 ---@return miniloader.Data?
-function Controller:create(main, config, no_snapping)
+function Controller:create(main, config, no_snapping, player_index)
     if not Is.Valid(main) then return nil end
 
-    local ml_entity = self:setup(main, config)
+    local ml_entity = self:setup(main, config, player_index)
     if not ml_entity then return nil end
 
     if config then
@@ -467,7 +472,7 @@ local function configure_regular_mode(ml_entity)
         inserter.pickup_position = pickup_position
         inserter.drop_position = drop_position
 
-        if Framework.settings:startup_setting('debug_mode') then
+        if DEBUG_MODE then
             draw_position(ml_entity, inserter.drop_position, { r = 1, g = 0, b = 0 }, inserter_index)
             draw_position(ml_entity, inserter.pickup_position, { r = 0, g = 1, b = 0 }, inserter_index)
             draw_position(ml_entity, inserter.position, { r = 0, g = 0, b = 1 }, inserter_index)
